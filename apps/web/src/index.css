@@ -8,7 +8,37 @@
   --border: #1e3a5f;
   --text: #e2e8f0;
   --muted: #64748b;
-  --cyan: #00e5ff;
+  --cyan: #00E5FF;
+  /* ── RALD Ecosystem Product Tokens ──────────────────── */
+  --loop:          #00FF88;
+  --loop-dim:      #00D96F;
+  --loop-glow:     rgba(0,255,136,0.22);
+  --messenger:     #FF7A00;
+  --messenger-glow: rgba(255,122,0,0.22);
+  --loop-biz:      #FF6A00;
+  --payrald:       #0066FF;
+  --payrald-accent: #3385FF;
+  --payrald-glow:  rgba(0,102,255,0.22);
+  --raldtics:      #FFD400;
+  --raldtics-accent: #FFE14A;
+  --raldtics-glow: rgba(255,212,0,0.22);
+  --dispatch:      #00BFFF;
+  --dispatch-accent: #4DD8FF;
+  --dispatch-glow: rgba(0,191,255,0.22);
+  --dunarald:      #A855F7;
+  --dunarald-accent: #C084FC;
+  --dunarald-glow: rgba(168,85,247,0.22);
+  --gitrald:       #FF2E2E;
+  --gitrald-accent: #FF6666;
+  --gitrald-glow:  rgba(255,46,46,0.22);
+  /* ── AI Agent Identity Colors ───────────────────────── */
+  --agent-atlas:    #00E5FF;
+  --agent-sentinel: #FF5722;
+  --agent-nova:     #A855F7;
+  --agent-forge:    #FF2E2E;
+  --agent-echo:     #00BFA5;
+  --agent-pulse:    #FFD400;
+  --agent-lee:      #0066FF;
   --amber: #f59e0b;
   --purple: #a855f7;
   --red: #ef4444;
