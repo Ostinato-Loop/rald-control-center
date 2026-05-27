@@ -1,4 +1,5 @@
 import { LogOut, Bell, User } from "lucide-react";
+import { RaldLogo } from "@/components/shared/RaldLogo";
 import { useAuth } from "@/hooks/useAuth";
 
 export function TopBar() {
@@ -6,11 +7,11 @@ export function TopBar() {
 
   return (
     <header className="flex items-center justify-between px-6 py-3 border-b border-[var(--border)] flex-shrink-0" style={{ background: "var(--surface)" }}>
-      <div className="flex items-center gap-2 text-xs font-mono text-[var(--muted)]">
-        <span className="text-[var(--cyan)]">RALD</span>
-        <span>/</span>
-        <span>CONTROL CENTER</span>
-        <span className="ml-3 px-2 py-0.5 rounded text-[10px] bg-[rgba(0,229,255,0.1)] text-[var(--cyan)] border border-[rgba(0,229,255,0.2)]">v1.0</span>
+      <div className="flex items-center gap-2">
+        <RaldLogo height={22} theme="dark" accentColor="#00E5FF" />
+        <span className="text-[var(--muted)] text-xs font-mono">/</span>
+        <span className="text-xs font-mono text-[var(--muted)]">CONTROL CENTER</span>
+        <span className="ml-2 px-2 py-0.5 rounded text-[10px] bg-[rgba(0,229,255,0.1)] text-[var(--cyan)] border border-[rgba(0,229,255,0.2)] font-mono">v1.0</span>
       </div>
 
       <div className="flex items-center gap-3">
