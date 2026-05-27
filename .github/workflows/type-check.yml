@@ -15,7 +15,7 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: "20"
-      - run: npm ci
+      - run: npm install
         working-directory: apps/api
       - run: npm run type-check
         working-directory: apps/api
@@ -28,7 +28,7 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: "20"
-      - run: npm ci
+      - run: npm install
         working-directory: apps/web
       - run: npm run type-check
         working-directory: apps/web
