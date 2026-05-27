@@ -34,7 +34,15 @@ app.get("/", c => c.json({ service: "RALD Control Center API", version: "1.0.0",
 
 app.get("/health", c => c.json({ status: "ok", service: "rald-control-center-api", timestamp: new Date().toISOString() }));
 app.get("/ready", c => c.json({ ready: true, checks: { supabase: !!c.env.SUPABASE_URL }, timestamp: new Date().toISOString() }));
-app.get("/version", c => c.json({ version: "1.0.0", environment: c.env.ENVIRONMENT ?? "production" }));
+
+const versionHandler = (c: any) => c.json({
+  version: "1.0.0",
+  service: "rald-control-center-api",
+  environment: c.env.ENVIRONMENT ?? "production",
+  timestamp: new Date().toISOString(),
+});
+app.get("/version", versionHandler);
+app.get("/api/version", versionHandler);
 
 app.route("/", auth);
 app.route("/", github);
