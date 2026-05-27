@@ -11,7 +11,7 @@ auth.post("/api/auth/login", async (c) => {
 
   const db = getSupabase(c.env);
   const { data: user } = await db
-    .from("users")
+    .from("rald_cc_users")
     .select("*")
     .eq("username", username)
     .eq("is_active", true)
@@ -23,7 +23,7 @@ auth.post("/api/auth/login", async (c) => {
   if (!valid) return c.json({ error: "Unauthorized", message: "Invalid credentials" }, 401);
 
   const token = await signToken({ id: user.id, username: user.username, role: user.role }, c.env);
-  await db.from("users").update({ last_login: new Date().toISOString() }).eq("id", user.id);
+  await db.from("rald_cc_users").update({ last_login: new Date().toISOString() }).eq("id", user.id);
   await writeAudit(db, username, "auth.login", "auth", c.req.header("CF-Connecting-IP") ?? "unknown");
 
   return c.json({
@@ -51,7 +51,7 @@ auth.get("/api/auth/me", async (c) => {
   if (!payload) return c.json({ error: "Unauthorized" }, 401);
 
   const db = getSupabase(c.env);
-  const { data: user } = await db.from("users").select("id,username,email,role,created_at").eq("id", payload.id).single();
+  const { data: user } = await db.from("rald_cc_users").select("id,username,email,role,created_at").eq("id", payload.id).single();
   if (!user) return c.json({ error: "Not found" }, 404);
   return c.json({ id: user.id, username: user.username, email: user.email, role: user.role, createdAt: user.created_at });
 });
@@ -59,12 +59,12 @@ auth.get("/api/auth/me", async (c) => {
 auth.post("/api/auth/setup-admin", async (c) => {
   // One-time admin setup — disabled if admin already exists
   const db = getSupabase(c.env);
-  const { count } = await db.from("users").select("*", { count: "exact", head: true }).eq("role", "admin");
+  const { count } = await db.from("rald_cc_users").select("*", { count: "exact", head: true }).eq("role", "admin");
   if (count && count > 0) return c.json({ error: "Admin already exists" }, 409);
 
   const { username, email, password } = await c.req.json();
   const hash = await hashPassword(password);
-  const { data, error } = await db.from("users").insert({
+  const { data, error } = await db.from("rald_cc_users").insert({
     username, email, password_hash: hash, role: "admin", is_active: true,
   }).select().single();
   if (error) return c.json({ error: error.message }, 500);

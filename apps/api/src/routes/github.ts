@@ -94,7 +94,7 @@ github.post("/api/github/sync", async (c) => {
     last_synced: new Date().toISOString(),
   }));
 
-  const { error } = await db.from("github_repos").upsert(upserts, { onConflict: "github_id" });
+  const { error } = await db.from("rald_cc_github_repos").upsert(upserts, { onConflict: "github_id" });
   if (error) return c.json({ error: error.message }, 500);
 
   const payload = await verifyToken(token, c.env);

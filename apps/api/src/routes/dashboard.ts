@@ -11,11 +11,11 @@ dashboard.get("/api/dashboard/summary", async (c) => {
   const db = getSupabase(c.env);
 
   const [providers, models, languages, repos, audits] = await Promise.all([
-    db.from("ai_providers").select("*").eq("is_active", true),
-    db.from("ai_models").select("*").eq("is_active", true),
-    db.from("language_packs").select("*").eq("is_active", true),
-    db.from("github_repos").select("*"),
-    db.from("audit_logs").select("*").order("created_at", { ascending: false }).limit(10),
+    db.from("rald_cc_ai_providers").select("*").eq("is_active", true),
+    db.from("rald_cc_ai_models").select("*").eq("is_active", true),
+    db.from("rald_cc_language_packs").select("*").eq("is_active", true),
+    db.from("rald_cc_github_repos").select("*"),
+    db.from("rald_cc_audit_logs").select("*").order("created_at", { ascending: false }).limit(10),
   ]);
 
   const providerCosts = (providers.data ?? []).map(p => ({

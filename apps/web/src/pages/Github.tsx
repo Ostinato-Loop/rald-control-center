@@ -1,6 +1,6 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { api, type GithubRepo } from "@/lib/api";
-import { Github, RefreshCw, ExternalLink, Star, GitBranch, AlertCircle } from "lucide-react";
+import { Github as GithubIcon, RefreshCw, ExternalLink, Star, AlertCircle } from "lucide-react";
 import { useState } from "react";
 
 const CATEGORIES = ["All", "AI Services", "Commerce", "Payments", "Voice Systems", "Infrastructure", "Messaging", "Developer Tools", "Security", "Other"];
@@ -35,7 +35,9 @@ export default function Github() {
     <div className="space-y-5">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-xl font-bold flex items-center gap-2"><Github className="w-5 h-5" /> GitHub — Ostinato-Loop</h1>
+          <h1 className="text-xl font-bold flex items-center gap-2">
+            <GithubIcon className="w-5 h-5" /> GitHub — Ostinato-Loop
+          </h1>
           <p className="text-xs text-[var(--muted)] mt-0.5">{repos?.length ?? 0} repositories discovered</p>
         </div>
         <button onClick={() => sync.mutate()} disabled={sync.isPending} className="btn btn-primary text-xs">
@@ -44,7 +46,6 @@ export default function Github() {
         </button>
       </div>
 
-      {/* Filters */}
       <div className="flex flex-wrap gap-2">
         <input className="input" style={{ maxWidth: 220 }} placeholder="Search repos..." value={search} onChange={e => setSearch(e.target.value)} />
         {CATEGORIES.map(c => (
@@ -53,7 +54,7 @@ export default function Github() {
       </div>
 
       {isLoading ? (
-        <div className="text-[var(--muted)] font-mono animate-pulse">Loading repositories...</div>
+        <div className="text-[var(--muted)] font-mono animate-pulse">Loading repositories from Ostinato-Loop...</div>
       ) : (
         <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-3">
           {filtered.map(r => (
@@ -77,6 +78,9 @@ export default function Github() {
               </div>
             </div>
           ))}
+          {filtered.length === 0 && !isLoading && (
+            <div className="col-span-3 text-center py-12 text-[var(--muted)]">No repositories found. Click "Sync All" to import from GitHub.</div>
+          )}
         </div>
       )}
     </div>

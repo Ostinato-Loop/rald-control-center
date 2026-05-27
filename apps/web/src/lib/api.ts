@@ -1,4 +1,4 @@
-const BASE = import.meta.env.VITE_API_URL ?? "/api";
+const BASE = (import.meta as { env?: { VITE_API_URL?: string } }).env?.VITE_API_URL ?? "/api";
 
 function getToken() {
   return localStorage.getItem("rald_token");
@@ -25,7 +25,7 @@ async function req<T>(
   }
 
   const text = await res.text();
-  return text ? JSON.parse(text) : null;
+  return (text ? JSON.parse(text) : undefined) as T;
 }
 
 export const api = {

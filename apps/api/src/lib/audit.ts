@@ -8,7 +8,7 @@ export async function writeAudit(
   ip: string,
   metadata?: Record<string, unknown>
 ) {
-  await db.from("audit_logs").insert({
+  await db.from("rald_cc_audit_logs").insert({
     username,
     action,
     resource,
