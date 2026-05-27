@@ -1,0 +1,14 @@
+{
+  "name": "rald-control-center",
+  "version": "1.0.0",
+  "private": true,
+  "description": "RALD AI OS — Enterprise Control Plane on RALD.cloud",
+  "scripts": {
+    "dev:api": "npm --prefix apps/api run dev",
+    "dev:web": "npm --prefix apps/web run dev",
+    "build:api": "npm --prefix apps/api run build",
+    "build:web": "npm --prefix apps/web run build",
+    "deploy:api": "npm --prefix apps/api run deploy",
+    "type-check": "npm --prefix apps/api run type-check && npm --prefix apps/web run type-check"
+  }
+}
