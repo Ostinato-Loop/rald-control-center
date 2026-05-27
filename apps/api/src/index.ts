@@ -30,7 +30,11 @@ app.use("*", cors({
   credentials: true,
 }));
 
-app.get("/", c => c.json({ service: "RALD Control Center API", version: "1.0.0", status: "operational" }));
+app.get("/", c => c.json({ service: "RALD Control Center API", version: "1.0.0", status: "operational", api: "https://cc-api.rald.cloud" }));
+
+app.get("/health", c => c.json({ status: "ok", service: "rald-control-center-api", timestamp: new Date().toISOString() }));
+app.get("/ready", c => c.json({ ready: true, checks: { supabase: !!c.env.SUPABASE_URL }, timestamp: new Date().toISOString() }));
+app.get("/version", c => c.json({ version: "1.0.0", environment: c.env.ENVIRONMENT ?? "production" }));
 
 app.route("/", auth);
 app.route("/", github);
