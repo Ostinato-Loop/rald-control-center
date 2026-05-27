@@ -18,5 +18,10 @@ ENVIRONMENT = "production"
 # AWS_REGION
 
 [[routes]]
+pattern = "cc-api.rald.cloud/*"
+zone_name = "rald.cloud"
+
+# Legacy route (kept for backwards compat, but TLS works on cc-api)
+[[routes]]
 pattern = "api.control.rald.cloud/*"
 zone_name = "rald.cloud"
