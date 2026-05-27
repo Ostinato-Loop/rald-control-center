@@ -17,7 +17,14 @@ const app = new Hono<{ Bindings: Env }>();
 
 app.use("*", logger());
 app.use("*", cors({
-  origin: ["https://control.rald.cloud", "http://localhost:5173", "http://localhost:3000"],
+  origin: [
+    "https://control.rald.cloud",
+    "https://admin.rald.cloud",
+    "https://sv.rald.cloud",
+    "https://rald-control-center.pages.dev",
+    "http://localhost:5173",
+    "http://localhost:3000",
+  ],
   allowHeaders: ["Authorization", "Content-Type"],
   allowMethods: ["GET", "POST", "PATCH", "DELETE", "OPTIONS"],
   credentials: true,
