@@ -30,13 +30,10 @@ jobs:
         working-directory: apps/web
         run: npm run build
         env:
-          VITE_API_URL: https://api.control.rald.cloud/api
+          VITE_API_URL: https://cc-api.rald.cloud
 
       - name: Deploy to Cloudflare Pages
-        uses: cloudflare/pages-action@v1
-        with:
-          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          projectName: rald-control-center
-          directory: apps/web/dist
-          gitHubToken: ${{ secrets.GITHUB_TOKEN }}
+        run: npx wrangler@latest pages deploy apps/web/dist --project-name=rald-control-center --branch=${{ github.ref_name }}
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
