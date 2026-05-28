@@ -1,27 +1,21 @@
 name = "rald-control-center-api"
 main = "src/index.ts"
-compatibility_date = "2024-12-01"
+compatibility_date = "2025-04-01"
 compatibility_flags = ["nodejs_compat"]
 
 [vars]
 ENVIRONMENT = "production"
 
-# Secrets set via wrangler secret put or GitHub Actions:
-# SUPABASE_URL
-# SUPABASE_SERVICE_KEY
-# JWT_SECRET
-# GITHUB_TOKEN
-# N8N_URL
-# N8N_API_KEY
-# CLOUDFLARE_ACCOUNT_ID
-# CLOUDFLARE_API_TOKEN
-# AWS_REGION
+# Secrets (set via wrangler secret put or GitHub Actions):
+# JWT_SECRET, GITHUB_TOKEN, N8N_URL, N8N_API_KEY
+# CLOUDFLARE_ACCOUNT_ID, CLOUDFLARE_API_TOKEN, AWS_REGION
+# SUPABASE_URL, SUPABASE_SERVICE_KEY (for RALD system integration)
 
-[[routes]]
-pattern = "cc-api.rald.cloud/*"
-zone_name = "rald.cloud"
+[[d1_databases]]
+binding = "DB"
+database_name = "rald-control-center-db"
+database_id = "a904867c-083d-40b5-a230-12e2be0ac771"
 
-# Legacy route (kept for backwards compat, but TLS works on cc-api)
 [[routes]]
 pattern = "api.control.rald.cloud/*"
 zone_name = "rald.cloud"

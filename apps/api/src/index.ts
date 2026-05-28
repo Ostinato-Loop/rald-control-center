@@ -1,7 +1,7 @@
 import { Hono } from "hono";
 import { cors } from "hono/cors";
 import { logger } from "hono/logger";
-import { type Env } from "./lib/supabase.ts";
+import type { Env } from "./lib/db.ts";
 
 import auth from "./routes/auth.ts";
 import github from "./routes/github.ts";
@@ -12,7 +12,6 @@ import infra from "./routes/infrastructure.ts";
 import langs from "./routes/languages.ts";
 import audit from "./routes/audit.ts";
 import dashboard from "./routes/dashboard.ts";
-import obsKeys from "./routes/observability-keys.ts";
 
 const app = new Hono<{ Bindings: Env }>();
 
@@ -20,8 +19,6 @@ app.use("*", logger());
 app.use("*", cors({
   origin: [
     "https://control.rald.cloud",
-    "https://admin.rald.cloud",
-    "https://sv.rald.cloud",
     "https://rald-control-center.pages.dev",
     "http://localhost:5173",
     "http://localhost:3000",
@@ -31,19 +28,8 @@ app.use("*", cors({
   credentials: true,
 }));
 
-app.get("/", c => c.json({ service: "RALD Control Center API", version: "1.0.0", status: "operational", api: "https://cc-api.rald.cloud" }));
-
-app.get("/health", c => c.json({ status: "ok", service: "rald-control-center-api", timestamp: new Date().toISOString() }));
-app.get("/ready", c => c.json({ ready: true, checks: { supabase: !!c.env.SUPABASE_URL }, timestamp: new Date().toISOString() }));
-
-const versionHandler = (c: any) => c.json({
-  version: "1.0.0",
-  service: "rald-control-center-api",
-  environment: c.env.ENVIRONMENT ?? "production",
-  timestamp: new Date().toISOString(),
-});
-app.get("/version", versionHandler);
-app.get("/api/version", versionHandler);
+app.get("/", c => c.json({ service: "RALD Control Center API", version: "2.0.0", db: "d1", status: "operational" }));
+app.get("/health", c => c.json({ status: "ok", ts: new Date().toISOString() }));
 
 app.route("/", auth);
 app.route("/", github);
@@ -54,12 +40,11 @@ app.route("/", infra);
 app.route("/", langs);
 app.route("/", audit);
 app.route("/", dashboard);
-app.route("/", obsKeys);
 
 app.notFound(c => c.json({ error: "Not found" }, 404));
 app.onError((err, c) => {
-  console.error(err);
-  return c.json({ error: "Internal server error" }, 500);
+  console.error("[Worker Error]", err.message);
+  return c.json({ error: "Internal server error", message: err.message }, 500);
 });
 
 export default app;
