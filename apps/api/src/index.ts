@@ -12,6 +12,7 @@ import infra from "./routes/infrastructure.ts";
 import langs from "./routes/languages.ts";
 import audit from "./routes/audit.ts";
 import dashboard from "./routes/dashboard.ts";
+import obsKeys from "./routes/observability-keys.ts";
 
 const app = new Hono<{ Bindings: Env }>();
 
@@ -53,6 +54,7 @@ app.route("/", infra);
 app.route("/", langs);
 app.route("/", audit);
 app.route("/", dashboard);
+app.route("/", obsKeys);
 
 app.notFound(c => c.json({ error: "Not found" }, 404));
 app.onError((err, c) => {
