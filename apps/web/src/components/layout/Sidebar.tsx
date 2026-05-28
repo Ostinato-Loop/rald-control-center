@@ -1,6 +1,6 @@
 import { useLocation } from "wouter";
 import { RaldLogo } from "@/components/shared/RaldLogo";
-import { LayoutDashboard, Github, Brain, BookOpen, Workflow, Server, Languages, ScrollText, ChevronRight } from "lucide-react";
+import { LayoutDashboard, Github, Brain, BookOpen, Workflow, Server, Languages, ScrollText, ChevronRight, KeyRound } from "lucide-react";
 import { clsx } from "clsx";
 
 const nav = [
@@ -12,6 +12,7 @@ const nav = [
   { label: "Infrastructure", href: "/infrastructure", icon: Server },
   { label: "Languages", href: "/languages", icon: Languages },
   { label: "Audit Logs", href: "/audit", icon: ScrollText },
+  { label: "Obs. Keys", href: "/observability", icon: KeyRound },
 ];
 
 export function Sidebar() {
