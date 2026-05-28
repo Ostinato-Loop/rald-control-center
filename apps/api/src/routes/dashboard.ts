@@ -43,7 +43,7 @@ dashboard.get("/api/dashboard/summary", async (c) => {
   }
 
   const ghCheck = await fetch("https://api.github.com/orgs/Ostinato-Loop", {
-    headers: { Authorization: `token ${c.env.GITHUB_TOKEN}` },
+    headers: { Authorization: `Bearer ${c.env.GITHUB_TOKEN}`, "User-Agent": "RALD-Control-Center/2.0" },
   }).then(r => ({ name: "GitHub API", status: r.ok?"operational":"degraded", latencyMs: 45 }))
     .catch(() => ({ name: "GitHub API", status: "unreachable", latencyMs: 0 }));
 
