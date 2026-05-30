@@ -1,7 +1,6 @@
 import { Hono } from "hono";
 import { verifyToken } from "../lib/auth.ts";
-import { getSupabase } from "../lib/supabase.ts";
-import type { Env } from "../lib/db.ts";
+import { getSupabase, type Env } from "../lib/supabase.ts";
 import { writeAudit } from "../lib/audit.ts";
 
 const obs = new Hono<{ Bindings: Env }>();
