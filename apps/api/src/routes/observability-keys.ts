@@ -24,7 +24,7 @@ obs.get("/api/observability-keys", async (c) => {
   // Indicate whether a key is set without exposing it
   const rows = await db.from("rald_cc_observability_keys").select("id,api_key,source_token,dsn");
   const keyMap: Record<string, boolean> = {};
-  for (const r of rows.data ?? []) {
+  for (const r of (rows.data ?? []) as { id: string; api_key?: string | null; source_token?: string | null; dsn?: string | null }[]) {
     keyMap[r.id] = !!(r.api_key || r.source_token || r.dsn);
   }
   return c.json((data ?? []).map(r => ({ ...r, hasKey: !!keyMap[r.id] })));
