@@ -1,6 +1,7 @@
 import { Hono } from "hono";
 import { verifyToken } from "../lib/auth.ts";
-import { getSupabase, type Env } from "../lib/supabase.ts";
+import { getSupabase } from "../lib/supabase.ts";
+import type { Env } from "../lib/db.ts";
 import { writeAudit } from "../lib/audit.ts";
 
 const obs = new Hono<{ Bindings: Env }>();
@@ -56,7 +57,7 @@ obs.put("/api/observability-keys/:service", async (c) => {
     .select("id,service,label,is_active,updated_at")
     .single();
   if (error) return c.json({ error: error.message }, 500);
-  await writeAudit(db, payload.username, `obs_key.update.${service}`, "observability_keys", c.req.header("CF-Connecting-IP") ?? "unknown");
+  await writeAudit(c.env.DB, payload.username, `obs_key.update.${service}`, "observability_keys", c.req.header("CF-Connecting-IP") ?? "unknown");
   return c.json({ ok: true, key: data });
 });
 
@@ -70,7 +71,7 @@ obs.delete("/api/observability-keys/:service", async (c) => {
     .update({ api_key: null, source_token: null, dsn: null, is_active: false, updated_by: payload.username, updated_at: new Date().toISOString() })
     .eq("service", c.req.param("service"));
   if (error) return c.json({ error: error.message }, 500);
-  await writeAudit(db, payload.username, `obs_key.revoke.${c.req.param("service")}`, "observability_keys", c.req.header("CF-Connecting-IP") ?? "unknown");
+  await writeAudit(c.env.DB, payload.username, `obs_key.revoke.${c.req.param("service")}`, "observability_keys", c.req.header("CF-Connecting-IP") ?? "unknown");
   return c.json({ ok: true, revoked: true });
 });
 
