@@ -17,15 +17,19 @@ const app = new Hono<{ Bindings: Env }>();
 
 app.use("*", logger());
 app.use("*", cors({
-  origin: [
-    "https://control.rald.cloud",
-    "https://rald-control-center.pages.dev",
-    "http://localhost:5173",
-    "http://localhost:3000",
-    /\.rald-control-center\.pages\.dev$/,
-    /\.replit\.dev$/,
-    /\.repl\.co$/,
-  ],
+  origin: (origin) => {
+    const allowed = [
+      "https://control.rald.cloud",
+      "https://rald-control-center.pages.dev",
+      "http://localhost:5173",
+      "http://localhost:3000",
+    ];
+    if (allowed.includes(origin)) return origin;
+    if (/\.rald-control-center\.pages\.dev$/.test(origin)) return origin;
+    if (/\.replit\.dev$/.test(origin)) return origin;
+    if (/\.repl\.co$/.test(origin)) return origin;
+    return null;
+  },
   allowHeaders: ["Authorization", "Content-Type"],
   allowMethods: ["GET", "POST", "PATCH", "DELETE", "OPTIONS"],
   credentials: true,
