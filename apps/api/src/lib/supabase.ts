@@ -1,6 +1,7 @@
 import { createClient } from "@supabase/supabase-js";
 
 export type Env = {
+  DB: D1Database;
   SUPABASE_URL: string;
   SUPABASE_SERVICE_KEY: string;
   JWT_SECRET: string;
