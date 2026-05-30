@@ -26,7 +26,7 @@ n8n.get("/api/n8n/status", async (c) => {
   if (!p) return c.json({ error: "Unauthorized" }, 401);
   const base = (c.env.N8N_URL ?? "").replace(/\/mcp-server.*$/, "");
   try {
-    const data = await n8nFetch("/workflows?limit=1&active=true", c.env);
+    const data = await n8nFetch("/workflows?limit=1&active=true", c.env) as { data?: unknown[] };
     return c.json({ connected: true, url: base, workflows: data.data?.length ?? 0 });
   } catch (e: unknown) {
     return c.json({ connected: false, url: base, error: String(e) });
