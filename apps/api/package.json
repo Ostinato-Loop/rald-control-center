@@ -9,7 +9,8 @@
   },
   "dependencies": {
     "hono": "^4.6.3",
-    "jose": "^5.9.6"
+    "jose": "^5.9.6",
+    "@supabase/supabase-js": "^2.46.2"
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^4.20241205.0",
