@@ -15,3 +15,7 @@ database_id = "a904867c-083d-40b5-a230-12e2be0ac771"
 [[routes]]
 pattern = "api.control.rald.cloud/*"
 zone_name = "rald.cloud"
+
+[[routes]]
+pattern = "cc-api.rald.cloud/*"
+zone_name = "rald.cloud"
