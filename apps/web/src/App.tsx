@@ -14,6 +14,7 @@ import Languages from "@/pages/Languages";
 import AuditLogs from "@/pages/AuditLogs";
 import ObservabilityKeys from "@/pages/ObservabilityKeys";
 import Wizmac from "@/pages/Wizmac";
+import WizmacKnowledge from "@/pages/WizmacKnowledge";
 
 const qc = new QueryClient({ defaultOptions: { queries: { retry: 1, staleTime: 60_000, refetchOnWindowFocus: false } } });
 
@@ -48,6 +49,7 @@ function Shell() {
             <Route path="/audit" component={AuditLogs} />
             <Route path="/observability" component={ObservabilityKeys} />
             <Route path="/wizmac" component={Wizmac} />
+            <Route path="/knowledge" component={WizmacKnowledge} />
             <Route>
               <div className="flex h-full items-center justify-center text-[var(--muted)]">404 — Page not found</div>
             </Route>
