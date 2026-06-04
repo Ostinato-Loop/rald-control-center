@@ -13,6 +13,7 @@ import langs from "./routes/languages.ts";
 import audit from "./routes/audit.ts";
 import dashboard from "./routes/dashboard.ts";
 import wizmac from "./routes/wizmac.ts";
+import knowledgeCore from "./routes/wizmac-knowledge.ts";
 
 const app = new Hono<{ Bindings: Env }>();
 
@@ -51,6 +52,7 @@ app.route("/", langs);
 app.route("/", audit);
 app.route("/", dashboard);
 app.route("/", wizmac);
+app.route("/", knowledgeCore);
 
 // ── Aliases expected by the generated API client ────────────────────────────
 
