@@ -12,6 +12,7 @@ import infra from "./routes/infrastructure.ts";
 import langs from "./routes/languages.ts";
 import audit from "./routes/audit.ts";
 import dashboard from "./routes/dashboard.ts";
+import wizmac from "./routes/wizmac.ts";
 
 const app = new Hono<{ Bindings: Env }>();
 
@@ -20,6 +21,7 @@ app.use("*", cors({
   origin: (origin) => {
     const allowed = [
       "https://control.rald.cloud",
+      "https://admin.rald.cloud",
       "https://rald-control-center.pages.dev",
       "http://localhost:5173",
       "http://localhost:3000",
@@ -48,6 +50,7 @@ app.route("/", infra);
 app.route("/", langs);
 app.route("/", audit);
 app.route("/", dashboard);
+app.route("/", wizmac);
 
 // ── Aliases expected by the generated API client ────────────────────────────
 
