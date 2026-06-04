@@ -19,3 +19,7 @@ zone_name = "rald.cloud"
 [[routes]]
 pattern = "cc-api.rald.cloud/*"
 zone_name = "rald.cloud"
+
+[[routes]]
+pattern = "admin.rald.cloud/*"
+zone_name = "rald.cloud"
