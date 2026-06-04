@@ -1,6 +1,6 @@
 import { useLocation } from "wouter";
 import { RaldLogo } from "@/components/shared/RaldLogo";
-import { LayoutDashboard, Github, Brain, BookOpen, Workflow, Server, Languages, ScrollText, ChevronRight, KeyRound, Activity, Database } from "lucide-react";
+import { LayoutDashboard, Github, Brain, BookOpen, Workflow, Server, Languages, ScrollText, ChevronRight, KeyRound, Activity, Database, Settings } from "lucide-react";
 import { clsx } from "clsx";
 
 const nav = [
@@ -64,10 +64,13 @@ export function Sidebar() {
         {wizmacNav.map((item) => <NavItem key={item.href} {...item} />)}
       </nav>
 
-      <div className="p-4 border-t border-[var(--border)]">
-        <div className="text-[10px] text-[var(--muted)] font-mono">
-          <div className="text-[var(--green)] mb-0.5">● SYSTEM ONLINE</div>
-          <div>control.rald.cloud</div>
+      <div className="border-t border-[var(--border)]">
+        <NavItem label="Settings" href="/settings" icon={Settings} />
+        <div className="p-4 border-t border-[var(--border)]">
+          <div className="text-[10px] text-[var(--muted)] font-mono">
+            <div className="text-[var(--green)] mb-0.5">● SYSTEM ONLINE</div>
+            <div>control.rald.cloud</div>
+          </div>
         </div>
       </div>
     </aside>
